@@ -1,10 +1,14 @@
+
+/* Importaciones */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&family=Raleway&family=Open+Sans");
+/* Reglas Generales */
 @charset "UTF-8";
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
+/* Navegacion */
 .nav__button{
     border: 1px solid grey;
     background-color: none;
@@ -31,3 +35,9 @@ nav ul a{
 nav ul a:hover{
     color: blue;
 }
+/* Cabecera */
+
+/* Contenido */
+
+/* Pie de Pagina */
+
