@@ -2,7 +2,6 @@
 /* Importaciones */
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&family=Raleway&family=Open+Sans");
 /* Reglas Generales */
-@charset "UTF-8";
 *{
     box-sizing: border-box;
     margin: 0;
