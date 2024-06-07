@@ -1,5 +1,6 @@
 /* Declaraciones */
 const d = document;
+const className = "active";
 const navButton = d.querySelector("nav .nav__button");
 const navMenu = d.querySelector("nav ul");
 
@@ -15,40 +16,36 @@ const controls = d.querySelectorAll(".gallery-controls button");
 function toggle(element, className="active"){
     element.classList.toggle(className);
 }
-function getItem(array, type, className="active"){
-    let newItem;
-    // Busqueda y eliminacion de clase
-    for (let i = 0; i < array.length; i++){
-        if (array[i].classList.contains(className)){
-            toggle(array[i], className)
-            // Definir el nuevo Elemento
-            switch(type){
-                case "NEXT":
-                    newItem = array[i + 1] ?? array[0];
-                break;
-                case "PREV":
-                    newItem = array[i - 1] ?? array[array.length - 1];
-                break;
-                default:
-                    newItem = array[type];
-            }
-        }
-    }
-    toggle(newItem, className);
+function getItem(array, className="active"){
+    for (let item of array){ 
+        if (item.classList.contains(className)){
+            toggle(item, className);
+            return item
+}}}
+function setItem(array, type){
+    const item = getItem(array);
+    const newItem = (
+        type === "NEXT" ?
+        (item.nextElementSibling || item.parentNode.firstElementChild) :
+        type === "PREV" ?
+        (item.previousElementSibling || item.parentNode.lastElementChild) :
+        array[type]
+    )
+    newItem.classList.toggle(className);
 }
 /* Eventos */
 navButton.onclick = () => toggle(navMenu)
 mapButton.onclick = () => toggle(mapFrame)
 
 prev.addEventListener("click", () => {
-    getItem(gallery,"PREV");
-    getItem(controls, "PREV");
+    setItem(gallery,"PREV");
+    setItem(controls, "PREV");
 })
 next.addEventListener("click", () => {
-    getItem(gallery,"NEXT");
-    getItem(controls, "NEXT");
+    setItem(gallery,"NEXT");
+    setItem(controls, "NEXT");
 })
 controls.forEach((btn,i) => btn.addEventListener("click", () => {
-    getItem(gallery, i);
-    getItem(controls, i);
+    setItem(gallery, i);
+    setItem(controls, i);
 }))
