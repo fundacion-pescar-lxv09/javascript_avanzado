@@ -79,3 +79,25 @@ nav ul a:hover{
     top: 1rem;
     right: 1rem;
 }
+.redes {
+    margin-bottom: 20px;
+}
+
+.redes a {
+    color: #ffff;
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid #ffff;
+    border-radius: 100%;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    margin: 10px 5px;
+    font-size: 20px;
+    transition: .3s;
+    text-align: center;
+}
+
+.redes a:hover {
+    background-color: #aa8d0d;
+}
