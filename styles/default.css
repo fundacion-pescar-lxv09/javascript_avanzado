@@ -80,6 +80,7 @@ nav ul a:hover{
     right: 1rem;
 }
 
+
 .forms{
     padding-top: 30px;
     display: flex;
@@ -94,4 +95,27 @@ nav ul a:hover{
 }
 .contact__form button{
     margin-top: 10px;
+
+.redes {
+    margin-bottom: 20px;
+}
+
+.redes a {
+    color: #ffff;
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid #ffff;
+    border-radius: 100%;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    margin: 10px 5px;
+    font-size: 20px;
+    transition: .3s;
+    text-align: center;
+}
+
+.redes a:hover {
+    background-color: #aa8d0d;
+
 }
