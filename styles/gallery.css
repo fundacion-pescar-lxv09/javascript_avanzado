@@ -6,7 +6,7 @@
   position: relative;
 }
 
-.p-absolute, .gallery > button, .gallery-item {
+.p-absolute, .gallery-controls, .gallery > button, .gallery-item {
   position: absolute;
 }
 
@@ -98,4 +98,21 @@
 }
 .gallery > button.icon-next::before {
   content: ">";
+}
+.gallery-controls {
+  left: 25%;
+  bottom: 1rem;
+  width: 50%;
+  text-align: center;
+}
+.gallery-controls button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: #ccc;
+  z-index: 1;
+  transition: all 0.25s linear;
+}
+.gallery-controls button.active {
+  padding: 0.5rem 1.5rem;
 }

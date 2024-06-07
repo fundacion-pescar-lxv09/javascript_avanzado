@@ -55,4 +55,22 @@ $position: static, relative, absolute, sticky, fixed;
             }
         }
     }
+    &-controls{
+        @extend .p-absolute;
+        left: 25%;
+        bottom: 1rem;
+        width: 50%;
+        text-align: center;
+        button{
+            border: none;
+            border-radius: .5rem;
+            padding: .5rem;
+            background-color: #ccc;
+            z-index: 1;
+            transition: all .25s linear;
+            &.active{
+                padding: .5rem 1.5rem;
+            }
+        }
+    }
 }
