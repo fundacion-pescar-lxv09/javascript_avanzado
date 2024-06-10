@@ -12,6 +12,8 @@ const prev = d.querySelector(".gallery .icon-prev");
 const next = d.querySelector(".gallery .icon-next");
 const controls = d.querySelectorAll(".gallery-controls button");
 
+const forms = d.querySelectorAll('form');
+
 /* Funciones */
 function toggle(element, className="active"){
     element.classList.toggle(className);
@@ -49,3 +51,47 @@ controls.forEach((btn,i) => btn.addEventListener("click", () => {
     setItem(gallery, i);
     setItem(controls, i);
 }))
+// Formularios y expresiones regulares
+forms.forEach(form => form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const fields = event.target.querySelectorAll('input, select, textarea');
+    fields.forEach(field => console.log(checkContent(field)))
+}))
+
+function checkContent(element){
+    let regExp; // expresion regular
+    switch(element.type){
+        case "text":
+            regExp = /(\D{3,50})|([A-Z a-z]{3,50})/
+        break;
+        case "phone":
+            regExp = /(\d{6,20})|(^[\(]\d{2,5}[\)]([-]?\d{2-4}){2,4}$)/
+        break;
+        case "email":
+            regExp = /^(\S{2,}@\S{2,}.(\w{2,3}){1,2})$/
+        break;
+    }
+    return regExp.test(element.value)
+    /*  Identificadores de Caracteres
+        \w solamente letras
+        \d solamente digitos
+        \s solamente espacios
+
+        \W todo menos letras
+        \D todo menos digitos
+        \S todo menos espacio
+
+        Cuantificadores
+        * uno, varios o ninguno
+        + por lo menos una vez
+        ? una o ninguna vez
+        {n} exactamente n caracteres
+        {n,} por lo menos n veces
+        {n,m} entre n y m veces
+
+        Posicionamiento
+        ^ empieza con
+        $ termina con
+        \b al principio o al final de un espacio
+    */
+}
