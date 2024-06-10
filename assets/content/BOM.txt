@@ -1,1 +1,7 @@
-Browser Object Model
+<h2>Browser Object Model</h2>
+<p>
+    El modelo de Objetos de Navegador consiste en una estructura de datos que contiene las propiedades y metodos que podemos utilizar relacionados con la ventana en la que se esta visualizando la pagina.
+<p>
+</p>
+    En su interior posee metodos comunmente utilizados como console.log(), alert y prompt; en los cuales no hace falta referenciar al elemento contenedor, ya que window se utiliza por omision.
+</p>

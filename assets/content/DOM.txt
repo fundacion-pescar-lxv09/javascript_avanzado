@@ -1,1 +1,7 @@
-Document Object Model
+<h2>Document Object Model</h2>
+
+<p>
+    El Modelo de Objetos de Documento consiste en una estructura en forma de arbol que se utiliza para que javascript identifique cada uno de los nodos que conforman el documento HTML. </p>
+<p>
+    Permite al desarrollador navegar dentro de esta estructura, que posee determinadas propiedades y metodos que facilitan la creacion, edicion, manipulacion y eliminacion de dichos elementos.
+</p>
