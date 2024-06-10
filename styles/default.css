@@ -86,26 +86,33 @@ nav ul a:hover{
     right: 1rem;
 }
 
-
+/* Formularios */
 .forms{
-    padding-top: 30px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem max(1rem, calc(50vw - 480px));
     justify-content: space-around;
-    margin: auto;
+}
+.forms > * {
+    flex: 1 0 min(320px, 100%);
 }
 .contact__form, .newletter__form{
-    margin-left: 30px;
-    width: 30%;
     display: flex;
     flex-direction: column;
-}
-.contact__form button{
-    margin-top: 10px;
 }
 form .valid{
     outline: none;
     border: .1rem solid #3c6;
 }
+label{
+    padding-top: .5rem;
+}
+input, 
+button{
+    padding: .5rem;
+}
+/* Redes Sociales - Social Media */
 .redes {
     margin-bottom: 20px;
 }
@@ -127,5 +134,4 @@ form .valid{
 
 .redes a:hover {
     background-color: #aa8d0d;
-
 }
