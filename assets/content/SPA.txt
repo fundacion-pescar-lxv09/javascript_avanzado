@@ -1,1 +1,8 @@
-Single Page Application
+<h2>Single Page Application</h2>
+
+<p>
+    Conocidas tambien como aplicacion de una sola pagina, consisten en paginas web que unicamente muestran un archivo index y van actualizando su contenido mediante peticiones HTTP.
+</p>
+<p>
+    A diferencia de las paginas clasicas, estas no suelen recargarse, ya que se perderia la informacion obtenida mediante las peticiones; sino que mediante AJAX solicita los datos a mostrar.
+</p>

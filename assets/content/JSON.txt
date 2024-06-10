@@ -1,1 +1,8 @@
-JavaScript Object Notation
+<h2>JavaScript Object Notation</h2>
+
+<p>
+    Formato de archivo, muy popular, basado en la estructura de objetos de Javascript; que se utiliza para el intercambio de datos entre cliente y servidor. Este se escribe como literal utilizando comillas dobles para las propiedades y los valores.
+</p>
+<p>
+    Surge como una alternativa a los formatos previos, como por ejemplo XML, que utiliza etiqueta para identificar las propiedas y el valor se coloca dentro de las mismas.
+</p>
