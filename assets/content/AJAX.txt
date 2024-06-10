@@ -1,1 +1,24 @@
-Asynchronous JavaScript and XML
+<h2>Asynchronous JavaScript and XML</h2>
+
+<p>
+    Metodo que permite el intercambio de datos, mediante el uso de un objeto conocido como XMLHttpRequest, en el cual se cargara la respuesta enviada por el servidor
+</p>
+<p>
+    Este objeto posee una propiedad conocida como <strong>readyStateChange</strong> que permite identificar cambios en el mismo, ademas de la propiedad <strong>status</strong> que indica el tipo de respuesta obtenida por parte del servidor
+</p>
+<h3>readyState</h3>
+<ul>
+    <li><strong>0:</strong> UNSET</li>
+    <li><strong>1:</strong> OPEN</li>
+    <li><strong>2:</strong> LOADED</li>
+    <li><strong>3:</strong> PROGRESS</li>
+    <li><strong>4:</strong> SEND</li>
+</ul>
+<h3>status</h3>
+<ul>
+    <li><strong>1xx</strong> Solicitud Realizada</li>
+    <li><strong>2xx</strong> Respuestas Exitosas</li>
+    <li><strong>3xx</strong> Redireccionamientos</li>
+    <li><strong>4xx</strong> Errores de Cliente</li>
+    <li><strong>5xx</strong> Errores de Servidor</li>
+</ul>
