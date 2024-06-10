@@ -5,8 +5,14 @@
 /* Reglas Generales */
 *{
     box-sizing: border-box;
+}
+body,
+h1,
+h2,
+h3,
+header p,
+.menu{
     margin: 0;
-    padding: 0;
 }
 /* Navegacion */
 .nav__button{
