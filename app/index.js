@@ -52,11 +52,15 @@ controls.forEach((btn,i) => btn.addEventListener("click", () => {
     setItem(controls, i);
 }))
 // Formularios y expresiones regulares
-forms.forEach(form => form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const fields = event.target.querySelectorAll('input, select, textarea');
-    fields.forEach(field => console.log(checkContent(field)))
-}))
+forms.forEach(form => {
+    form.addEventListener('submit', (event) => event.preventDefault())
+    const fields = form.querySelectorAll('input, select, textarea');
+    fields.forEach(field => field.addEventListener('input', (e) => {
+        checkContent(field) ? 
+        field.classList.add('valid') : 
+        field.classList.remove('valid')
+    }))
+})
 
 function checkContent(element){
     let regExp; // expresion regular
@@ -64,18 +68,23 @@ function checkContent(element){
         case "text":
             regExp = /(\D{3,50})|([A-Z a-z]{3,50})/
         break;
-        case "phone":
-            regExp = /(\d{6,20})|(^[\(]\d{2,5}[\)]([-]?\d{2-4}){2,4}$)/
+        case "tel":
+            regExp = /\d{6,20}|^\(\d{2,5}\)(\-*\d{2,4}){2,4}$/
         break;
         case "email":
             regExp = /^(\S{2,}@\S{2,}.(\w{2,3}){1,2})$/
         break;
+        case "password":
+            regExp = /^\S{8,}$/
+        break;
+        default: 
+            regExp = /(\w\d\s)+/
     }
     return regExp.test(element.value)
     /*  Identificadores de Caracteres
         \w solamente letras
         \d solamente digitos
-        \s solamente espacios
+        \s solamente espacios (tabulaciones y saltos de linea)
 
         \W todo menos letras
         \D todo menos digitos
@@ -90,8 +99,8 @@ function checkContent(element){
         {n,m} entre n y m veces
 
         Posicionamiento
-        ^ empieza con
-        $ termina con
+        ^ empieza con (al inicio de la expresion)
+        $ termina con (al final de la expresion)
         \b al principio o al final de un espacio
     */
 }

@@ -96,6 +96,10 @@ nav ul a:hover{
 .contact__form button{
     margin-top: 10px;
 }
+form .valid{
+    outline: none;
+    border: .1rem solid #3c6;
+}
 .redes {
     margin-bottom: 20px;
 }
