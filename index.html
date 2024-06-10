@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <!-- Styles CSS -->
     <link rel="stylesheet" href="styles/default.css">
 </head>
-
 <body>
     <!-- Navegacion -->
     <nav>
@@ -17,7 +15,7 @@
         <button class="nav__button"></button>
         <ul>
             <li><a href="#">Inicio</a></li>
-            <li><a href="#">Contacto</a></li>
+            <li><a href="#contact">Contacto</a></li>
             <li><a href="#">Sobre nosotros</a></li>
         </ul>
     </nav>
@@ -56,7 +54,7 @@
         <button class="map__button">Agrandar mapa</button>
         <!-- Formulario de Contacto -->
         <div class="forms">
-            <form action="" class="contact__form">
+            <form id="contact" action="" class="contact__form">
                 <label for="contactName">Nombre</label>
                 <input id="contactName" type="text" placeholder="Nombre" required>
                 <label for="contactEmail">E-mail</label>
@@ -67,7 +65,7 @@
                 <textarea id="contactMessage" name=""></textarea>
                 <button>Enviar</button>
             </form>
-            <form  class="newletter__form" action="">
+            <form class="newletter__form" action="">
                 <label for="userName">Nombre</label>
                 <input id="userName" type="text" placeholder="Nombre" required>
                 <label for="userEmail">E-mail</label>
@@ -82,9 +80,6 @@
             <a href="#" class="fa-brands fa-twitter"></a>
             <a href="#" class="fa-brands fa-instagram"></a>
         </div>
-
-
-        
         <!-- Derechos de Autor -->
         <p>&copy; Derechos reservados | SU USO ESTA COMPLETAMENTE PROHIBIDO POR EL FBI. </p>
     </footer>
