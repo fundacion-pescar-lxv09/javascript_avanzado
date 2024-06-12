@@ -34,25 +34,27 @@ d.addEventListener('DOMContentLoaded', function() {
     })
     main.appendChild(nav);
     main.appendChild(content);
-
+    // Navegacion con Peticiones HTTP
+    const server = "https://jsonplaceholder.typicode.com"
+    const xlinks = ["users", "albums", "posts"]
+    const div = d.querySelector("main > div")
+    xlinks.forEach(link => div.innerHTML+= `<a href="${server}/${link}" data-target="jph">${link}</a>`)
+    // Eventos del DOM (CLICK)
     d.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
 
         const {target: el} = event;
 
-        if (el.tagName === "A"){
+        if (el.tagName === "A" || el.tagName === "BUTTON"){
             if(el.getAttribute('data-target').toLowerCase() === "ajax")
                 ajax(el.href, { 
                     callBack: (data) => content.innerHTML=data
                 })
             if (el.getAttribute('data-target').toLowerCase() === "jph")
                 ajax(el.href, {
-                    callBack: (data) => console.log(data)
+                    callBack: (data) => console.log(JSON.parse(data))
             })
-        }
-        if (el.tagName === "BUTTON"){
-        
         }
     })
 })
