@@ -56,6 +56,21 @@ nav ul a{
 nav ul a:hover{
     color: blue;
 }
+main > div{
+    display: grid;
+    padding: .5rem;
+    gap: .5rem;
+}
+main [data-target="ajax"]::before{
+    content: 'Content / ';
+}
+.btn-link{
+    color: #999;
+    text-decoration: none;
+}
+.btn-link:hover{
+    color: #333;
+}
 /* Cabecera */
 
 /* Contenido */
