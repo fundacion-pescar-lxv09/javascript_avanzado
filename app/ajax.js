@@ -3,18 +3,16 @@ d.addEventListener('DOMContentLoaded', function() {
 
     // Trabajando con AJAX
     function ajax(url, data){
-        const { method, target } = data;
+        const { method, callBack } = data;
         const xhr = new XMLHttpRequest();
 
-        xhr.addEventListener('load', () => {
-            console.log("cargado")
-        })
-        xhr.addEventListener('readystatechange', (e) => {
-            if(e.target.readyState === 4 && e.target.status === 200){
-                target.innerHTML= e.target.response
+        xhr.addEventListener('readystatechange', ({target:t}) => {
+            if(t.readyState === 4){
+                t.status === 200 && callBack(t.response)
+                t.status >= 400 && alert("Lo sentimos, ha ocurrido un error \n No se pudo recuperar la informacion")
             }
         })
-        xhr.open(method, url);
+        xhr.open(method ?? "GET", url);
         xhr.send()
     }
 
@@ -26,6 +24,7 @@ d.addEventListener('DOMContentLoaded', function() {
         { text:'JavaScript Object Notation', url:'JSON.txt'},
         { text:'Asynchronous JS & XML', url:'AJAX.txt'},
         { text:'Single Page Application', url:'SPA.txt'},
+        { text:'eXtended Markup Language', url: 'XML.txt'}
     ]
     const main = d.querySelector('main');
     const content = d.createElement('article');
@@ -36,17 +35,24 @@ d.addEventListener('DOMContentLoaded', function() {
     main.appendChild(nav);
     main.appendChild(content);
 
-    d.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    d.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-        if (e.target.tagName === "A"){
-            if(e.target.getAttribute('data-target').toLowerCase() === "ajax"){
-                ajax(e.target.href, {method: "GET", target: content})
-            }
+        const {target: el} = event;
+
+        if (el.tagName === "A"){
+            if(el.getAttribute('data-target').toLowerCase() === "ajax")
+                ajax(el.href, { 
+                    callBack: (data) => content.innerHTML=data
+                })
+            if (el.getAttribute('data-target').toLowerCase() === "jph")
+                ajax(el.href, {
+                    callBack: (data) => console.log(data)
+            })
         }
-        if (e.target.tagName === "BUTTON"){
-
+        if (el.tagName === "BUTTON"){
+        
         }
     })
 })
