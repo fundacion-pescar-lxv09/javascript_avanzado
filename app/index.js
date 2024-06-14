@@ -1,5 +1,5 @@
 import { d, jph, links, events, root } from "./declarations.js";
-import { users, todos, posts, Nav } from "./views/index.js"
+import { users, todos, posts, comments, Nav } from "./views/index.js"
 import { create } from "./methods.js";
 import { getData } from "./promise.js";
 
@@ -13,7 +13,10 @@ const Main = () => {
 const render = (array, callback) => {
     const main = d.querySelector('main');
     main.innerHTML = '';
-    array.map(item => main.innerHTML+=callback(item))
+    array.map(async (item) => {
+        const data = await callback({callback: comments,...item})
+        main.innerHTML+= data
+    })
 }
 
 // Eventos
@@ -28,6 +31,7 @@ events.forEach(ev => d.addEventListener(ev, async (e) => {
         const current = url[url.length - 1]
         history.pushState(current, current, current)
         render(await getData({url: `${jph}/${current}`}), eval(current))
+        if(location.pathname == "/posts") await comments()
     }
 }))
 
