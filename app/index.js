@@ -1,4 +1,5 @@
 import { d, jph, links, events, root } from "./declarations.js";
+import { users, todos, posts } from "./views/index.js"
 import { create } from "./methods.js";
 import { getData } from "./promise.js";
 
@@ -21,23 +22,15 @@ const Menu = ({links, tag = 'a', container = 'div', inside = root }) => {
 }
 
 const Main = () => {
-    const main = create({tagName: "main", className: "container row m-auto p-0"
+    const main = create({tagName: "main", className: "container row m-auto p-2 gap-2 justify-content-center"
     })
     root.append(main)
 }
 
 const render = (array, callback) => {
-    array.map(item => callback(item))
-}
-const users = ({id, name, username, email}) =>{
-    const main = d.querySelector("main");
-    main.innerHTML += `
-    <div id="user_${id}">
-        <h2>${username}</h2>
-        <a href="mailto:${email}">${email}</a>
-        <p>${name}</p>
-    </div>`
-
+    const main = d.querySelector('main');
+    main.innerHTML = '';
+    array.map(item => main.innerHTML+=callback(item))
 }
 
 // Eventos
