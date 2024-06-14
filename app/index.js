@@ -1,10 +1,6 @@
-const 
-    d = document,
-    jph = "https://jsonplaceholder.typicode.com",
-    links = ["users", "todos", "posts"],
-    events = ["click", "input", "focus", "keypress"],
-    root = d.getElementById("root")
-;
+import { d, jph, links, events, root } from "./declarations.js";
+import { create } from "./methods.js";
+import { getData } from "./promise.js";
 
 const Menu = ({links, tag = 'a', container = 'div', inside = root }) => {
     const Container = d.createElement(container);
@@ -24,9 +20,28 @@ const Menu = ({links, tag = 'a', container = 'div', inside = root }) => {
     inside.appendChild(Container);
 }
 
-Menu({links});
+const Main = () => {
+    const main = create({tagName: "main", className: "container row m-auto p-0"
+    })
+    root.append(main)
+}
 
-events.forEach(ev => d.addEventListener(ev, (e) => {
+const render = (array, callback) => {
+    array.map(item => callback(item))
+}
+const users = ({id, name, username, email}) =>{
+    const main = d.querySelector("main");
+    main.innerHTML += `
+    <div id="user_${id}">
+        <h2>${username}</h2>
+        <a href="mailto:${email}">${email}</a>
+        <p>${name}</p>
+    </div>`
+
+}
+
+// Eventos
+events.forEach(ev => d.addEventListener(ev, async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -36,5 +51,10 @@ events.forEach(ev => d.addEventListener(ev, (e) => {
         const url = tag.href.split("/")
         const current = url[url.length - 1]
         history.pushState(current, current, current)
+        render(await getData({url: `${jph}/${current}`}), eval(current))
     }
 }))
+
+// Ejecuciones
+Menu({links});
+Main();
