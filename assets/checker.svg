@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">
+    <style>
+        .border{
+            stroke: #eee8;
+            stroke-width: .25rem;
+            fill: transparent;
+        }
+    </style>
+    <circle cx="75" cy="75" r="70" class="border"/>
+    <circle cx="75" cy="75" r="60" class="border"/>
+    <circle cx="75" cy="75" r="50" class="border"/>
+    <polygon points="75,40 60,70 40,60 50,100 100,100 110,60 90,70 75,40" class="border"/>
+</svg>
