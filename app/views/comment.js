@@ -1,4 +1,4 @@
-import { d, jph } from "../declarations.js"
+import { jph } from "../declarations.js"
 import { getData } from "../promise.js"
 
 export const comments = async(id, List='') => {
@@ -7,8 +7,8 @@ export const comments = async(id, List='') => {
     return List
 }
 const comment = ({id, postId, name, email, body}) => `
-    <div id="comment_${postId}${id}" class="col-md-6 col-lg-4 list-group-item mx-auto">
-        <h4>${name}</h4>
+    <div id="comment_${postId}${id}" class="col-md-6 col-lg-4 list-group-item mx-auto border-bottom p-2">
+        <h4 class="h5">${name}</h4>
         <p>${body}</p>
         <address>
             <a href="mailto:${email}">${email}</a>

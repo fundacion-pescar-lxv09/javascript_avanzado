@@ -1,12 +1,12 @@
 import { d, jph, links, events, root } from "./declarations.js";
-import { users, todos, posts, comments, Nav, Main } from "./views/index.js"
+import { users, todos, posts, Nav, Main } from "./views/index.js"
 import { getData } from "./promise.js";
 
 const render = (array, callback) => {
     const main = d.querySelector('main');
     main.innerHTML = '';
     array.map(async (item) => {
-        const data = await callback({callback: comments,...item})
+        const data = await callback(item)
         main.innerHTML+= data
 })}
 
