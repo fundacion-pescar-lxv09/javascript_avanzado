@@ -1,3 +1,40 @@
+/* Etiqueta Raiz */
+#root{
+    display: grid;
+    grid-template-areas: 
+    "title  title"
+    "player board"
+    "player buttons";
+}
+.title{
+    grid-area: title;
+}
+.sidebar{
+    grid-area: player;
+}
+.board{
+    grid-area: board;
+}
+.game-controls{
+    grid-area: buttons;
+}
+/* Tablero de Juego */
+.board{
+    display: grid;
+    grid-template-columns: repeat(8,4rem);
+    grid-template-rows: repeat(8,4rem);
+}
+.board > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.board .light{
+    background-color: hsl(30, 50%, 60%);
+}
+.board .dark{
+    background-color: hsl(30, 50%, 30%);
+}
 /* Piezas */
 img{
     border-radius: 50%;
@@ -7,4 +44,10 @@ img{
 }
 .black{
     background-color: #333;
+}
+.blue{
+    background-color: #248;
+}
+.white{
+    background-color: #eee;
 }
