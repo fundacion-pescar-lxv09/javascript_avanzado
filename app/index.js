@@ -1,10 +1,33 @@
+// IIFE (Inmediately Invoked Function Expression)
+( function() {
+    
 const d = document;
 const root = d.getElementById('root');
 const checker = "assets/checker.svg";
+const totalCols = 8;
+const totalRows = 8;
 
 const checkCoord = (row, col) => 
     (row % 2 === 0 && col % 2 === 0) || 
     (row % 2 === 1 && col % 2 === 1)
+
+class Player{
+    constructor(name, color = "black"){
+        this.name = name;
+        this.color = color;
+        this.isTurn = false;
+        this.pieces = 12;
+    }
+    changeTurn(){
+        this.isTurn = !this.isTurn;
+    }
+    pieceLost(){
+        return --this.pieces;
+    }
+    piecesReset(){
+        this.pieces = 12
+    }
+}
 
 class Piece {
     isKing = false;
@@ -20,8 +43,8 @@ class Piece {
         return (
         (x === this.row + 1 || x === this.row - 1) && 
         (y === this.col + 1 || y === this.col - 1) &&
-        (x >= 0 && x < 8) && 
-        (y >= 0 && y < 8)
+        (x >= 0 && x < totalRows) && 
+        (y >= 0 && y < totalCols)
     )}
     movePiece(nextRow,nextCol){
         if (this.isValidMove(nextRow,nextCol)) {
@@ -52,9 +75,9 @@ class Piece {
 
 class Board {
     board = [];
-    constructor(cols, rows){
-        this.cols = cols;
+    constructor(rows,cols){
         this.rows = rows;
+        this.cols = cols;
     }
     getBoard(){
         for(let r = 0; r < this.rows; r++){
@@ -92,7 +115,36 @@ class Board {
         element.appendChild(board)
     }
 }
+gameControls()
 
-const game = new Board(8,8);
-game.getBoard()
-game.createBoard(root);
+function gameControls(){
+    const controls = d.createElement("div")
+    controls.setAttribute("class","game-controls")
+    const start = () => {
+        const startButton = d.createElement("button")
+        Object.assign(startButton, {
+            className: "btn btn-primary",
+            innerText: "EMPEZAR",
+            onclick: () => {
+                const player = new Player("player 1", "black");
+                player.changeTurn();
+                const game = new Board(totalRows, totalCols);
+                game.getBoard();
+                game.createBoard(root);
+            }
+        })
+        return startButton
+    }
+    const reset = () => {
+        const resetButton = d.createElement("button")
+        Object.assign(resetButton, {
+            className: "btn btn-danger",
+            onclick: () => start().click()
+        })
+        resetButton.innerHTML = "REINICIAR"
+        return resetButton
+    }
+    controls.append(start(), reset())
+    root.appendChild(controls)
+}
+})()
