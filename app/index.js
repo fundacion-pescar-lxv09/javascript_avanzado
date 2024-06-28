@@ -6,6 +6,7 @@ const root = d.getElementById('root');
 const checker = "assets/checker.svg";
 const totalCols = 8;
 const totalRows = 8;
+let currentTheme = 'light-bg'
 
 const checkCoord = (row, col) => 
     (row % 2 === 0 && col % 2 === 0) || 
@@ -144,7 +145,35 @@ function gameControls(){
         resetButton.innerHTML = "REINICIAR"
         return resetButton
     }
-    controls.append(start(), reset())
+    //controls.append(start(), reset())
+    //root.appendChild(controls)
+
+    const changeTheme = () => {
+        const themeButton = d.createElement("button")
+        root.className = 'light-bg'
+
+        function toggleTheme(element, theme){
+            element.className = ''
+            element.classList.add(theme)
+        }
+
+        Object.assign(themeButton, {
+            className: "btn btn-secondary",
+            onclick: () => {
+                if(root.classList.contains('light-bg')){
+                    toggleTheme(root, 'dark-bg')
+                    currentTheme = 'dark-bg'
+                }
+                else if(root.classList.contains('dark-bg')){
+                    toggleTheme(root, 'light-bg')
+                    currentTheme = 'light-bg'
+                }
+            }
+        })
+        themeButton.innerHTML = 'CAMBIAR TEMA'
+        return themeButton
+    }
+    controls.append(start(), reset(), changeTheme())
     root.appendChild(controls)
 }
 })()
