@@ -1,121 +1,79 @@
-
-/* Importaciones */
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&family=Raleway&family=Open+Sans");
-@import url('gallery.css');
-/* Reglas Generales */
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-/* Navegacion */
-.nav__button{
-    border: 1px solid grey;
-    background-color: none;
-    border-radius: 5px;
-    height: 30px;
-    width: 30px;
-    background-image: url("../assets/menu_icon_153999.png");
-    background-size: cover;
-    position: relative;
-    z-index: 2;
-}
-nav{
-    padding: 10px;
-    border: 1px solid;
-}
-nav ul{
-    list-style: none;
-    position: fixed;
-    top: 100%;
-    left: 0;
-    z-index: 1;
+/* Etiqueta Raiz */
+#root{
     display: grid;
-    justify-content: space-evenly;
-    align-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#c36,#448);
-    opacity: 0;
-    transition: all .5s linear;
+    grid-template-areas: 
+    "player board"
+    "player buttons";
 }
-nav ul.active{
-    top: 0;
-    opacity: .85;
+.title{
+    grid-area: title;
 }
-nav ul a{
-    text-decoration: none;
-    color: #eee;
+.sidebar{
+    grid-area: player;
 }
-nav ul a:hover{
-    color: blue;
+.board{
+    grid-area: board;
 }
-/* Cabecera */
-
-/* Contenido */
-
-/* Pie de Pagina */
-#footer{
-    min-height: 320px;
-    position: relative;
-    background: linear-gradient(#eeee, #333a);
+.game-controls{
+    grid-area: buttons;
 }
-.cover,
-.map{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+/* Tablero de Juego */
+.board{
+    display: grid;
+    grid-template-columns: repeat(8,4rem);
+    grid-template-rows: repeat(8,4rem);
 }
-.map.active,
-.active + .map__button{
-    position: fixed;
-    z-index: 1;
-}
-.map__button{
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-}
-
-
-.forms{
-    padding-top: 30px;
+.board > div{
     display: flex;
-    justify-content: space-around;
-    margin: auto;
+    justify-content: center;
+    align-items: center;
 }
-.contact__form, .newletter__form{
-    margin-left: 30px;
-    width: 30%;
+.board .light{
+    background-color: hsl(30, 50%, 60%);
+}
+.board .dark{
+    background-color: hsl(30, 50%, 30%);
+}
+/* Piezas */
+img{
+    width: 3.5rem;
+    border-radius: 50%;
+}
+.red{
+    background-color: #c33;
+}
+.black{
+    background-color: #333;
+}
+.blue{
+    background-color: #248;
+}
+.white{
+    background-color: #eee;
+}
+/* Controles */
+.game-controls{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    gap: .25rem;
+    padding: .5rem;
 }
-.contact__form button{
-    margin-top: 10px;
+.btn{
+    --color: #333;
+    --bg: #eee;
+    border-radius: .25rem;
+    border: 1px solid var(--color);
+    padding: .5rem;
+    color: var(--color);
+    background-color: var(--bg);
 }
-.redes {
-    margin-bottom: 20px;
+.btn:hover{
+    color: var(--bg);
+    background-color: var(--color);
 }
-
-.redes a {
-    color: #ffff;
-    display: inline-block;
-    text-decoration: none;
-    border: 1px solid #ffff;
-    border-radius: 100%;
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
-    margin: 10px 5px;
-    font-size: 20px;
-    transition: .3s;
-    text-align: center;
+.btn-primary{
+    --color: #36c;
 }
-
-.redes a:hover {
-    background-color: #aa8d0d;
-
+.btn-danger{
+    --color: #c33;
 }
