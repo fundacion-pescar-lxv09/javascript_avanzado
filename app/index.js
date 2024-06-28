@@ -6,6 +6,9 @@ const root = d.getElementById('root');
 const checker = "assets/checker.svg";
 const totalCols = 8;
 const totalRows = 8;
+root.className = 'light-bg'
+let currentTheme = 'light-bg'
+
 
 // Utils
 const even = (n) => n % 2 === 0
@@ -145,8 +148,14 @@ const gameControls = () =>{
     const load = createButton("secondary", "CARGAR", () => {
         if(confirm("¿desea cargar la ultima partida?")) loadGame()
     })
-    controls.append(start,save)
+    const theme = createButton("secondary", "CAMBIAR TEMA", () => {
+        root.classList.contains('light-bg') ? changeTheme(root, 'dark-bg') : changeTheme(root, 'light-bg')
+        currentTheme = root.className
+        console.log(currentTheme);
+    })
+    controls.append(start,save, theme)
     root.appendChild(controls)
+    
 }
 // Acciones del Juego
 let selected;
@@ -165,6 +174,10 @@ const loadGame = () =>{
     const loaded = localStorage.getItem("board") ?? 'no se encontraron partidas';
     game.board = loaded.board;
     updateBoard()
+}
+const changeTheme = (element, theme) => {
+    element.className = ''
+    element.classList.add(theme)
 }
 const gameActions = (e,action) => {
     const {target:el, target:{dataset:ds}, target:{dataset:{row,col}},} = e
