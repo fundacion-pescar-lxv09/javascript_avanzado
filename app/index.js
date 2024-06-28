@@ -1,8 +1,11 @@
 import { Player } from "./models/Player.js";
 import { Board } from "./models/Board.js";
 import { d, root, checker } from "./utils.js";
+import { Game } from "./models/Game.js";
 // IIFE (Inmediately Invoked Function Expression)
 ( function() {
+const currentGame = new Game([{color:"black",name:"player 01"},{color:"red",name: "player 02"}])
+// Para Modularizar
 const players = [
     new Player("player 1", "black"),
     new Player("player 2", "red")
@@ -22,32 +25,33 @@ const createButton =(color, innerText, onclick) => {
 const gameControls = () =>{
     const controls = d.createElement("div")
     controls.setAttribute("class", "game-controls");
-    const start = createButton("primary", "EMPEZAR", () => {
-        if(confirm("¿desea empezar una nueva partida?")) gameStart()
-    })
-    const save = createButton("success", "GUARDAR", () => {
-        if(confirm("¿desea guardar la partida?")) saveGame()
-    })
-    const load = createButton("secondary", "CARGAR", () => {
-        if(confirm("¿desea cargar la ultima partida?")) loadGame()
-    })
-    controls.append(start,save)
+    controls.append(
+        createButton("primary", "EMPEZAR", () => {
+            if(confirm("¿desea empezar una nueva partida?")) start()
+        }),
+        createButton("success", "GUARDAR", () => {
+            if(confirm("¿desea guardar la partida?")) save()
+        }),
+        createButton("secondary", "CARGAR", () => {
+            if(confirm("¿desea cargar la ultima partida?")) load()
+        })
+    )
     root.appendChild(controls)
 }
 // Acciones del Juego
 let selected;
 const events = ['click', 'dragstart', 'dragover', 'drop']
-const gameStart = () => {
+const start = () => {
     players[0].isTurn = true;
     players[1].isTurn = false;
     game.getBoard("black", "red")
     game.createBoard(root, checker);
 }
-const saveGame = () => {
+const save = () => {
     localStorage.setItem("board", JSON.stringify(game.board));
     localStorage.setItem("players", JSON.stringify(players));
 }
-const loadGame = () =>{
+const load = () =>{
     const loaded = localStorage.getItem("board") ?? 'no se encontraron partidas';
     game.board = loaded.board;
     updateBoard()
