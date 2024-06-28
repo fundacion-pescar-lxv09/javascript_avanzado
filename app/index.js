@@ -7,9 +7,10 @@ const checker = "assets/checker.svg";
 const totalCols = 8;
 const totalRows = 8;
 
-const checkCoord = (row, col) => 
-    (row % 2 === 0 && col % 2 === 0) || 
-    (row % 2 === 1 && col % 2 === 1)
+// Utils
+const even = (n) => n % 2 === 0
+const odd = (n) => n % 2 === 1
+const checkCoord = (r,c) => (even(r) && even(c)) || (odd(r) && odd(c))
 
 class Player{
     constructor(name, color = "black"){
@@ -30,28 +31,27 @@ class Player{
 }
 
 class Piece {
-    isKing = false;
     constructor(color, row, col){
         this.color = color;
         this.row = row
-        this.col = col
+        this.col = col    
+        this.isKing = false;
     }
     makeKing(){
         this.isKing = true;
     }
     isValidMove(x,y){
         return (
-        (x === this.row + 1 || x === this.row - 1) && 
-        (y === this.col + 1 || y === this.col - 1) &&
-        (x >= 0 && x < totalRows) && 
-        (y >= 0 && y < totalCols)
+        (x == this.row + 1 || x == this.row - 1) && 
+        (y == this.col + 1 || y == this.col - 1)
     )}
     movePiece(nextRow,nextCol){
         if (this.isValidMove(nextRow,nextCol)) {
             this.row = nextRow
             this.col = nextCol
+            return true
         }
-        else alert("Movimiento no permitido");
+        else return false;
     }
     render(type = "string", element = ''){
         return type === "string" ? this.template() : this.create(element)
@@ -68,32 +68,32 @@ class Piece {
         element.appendChild(img);
     }
     template(){
-        return `<img class="${this.color}" src="${checker}" alt="pieza jugador ${this.color}">`
+        return `<img class="${this.color}" 
+            src="${checker}" 
+            data-row="${this.row}" 
+            data-col="${this.col}"
+            alt="pieza ${this.color} ${this.row} ${this.col}"
+            draggable>`
     }
 
 }
 
 class Board {
-    board = [];
     constructor(rows,cols){
+        this.board = []
         this.rows = rows;
         this.cols = cols;
     }
-    getBoard(){
+    getBoard(c1,c2){
+        this.board = [];
         for(let r = 0; r < this.rows; r++){
             this.board.push([]);
             for(let c = 0; c < this.cols; c++){
-                switch(true){
-                case r < 3: {
-                    checkCoord(r,c) ? this.board[r].push(new Piece("black",r,c)) : this.board[r].push(null)
-                break;
-                }
-                case r > 4: {
-                    checkCoord(r,c) ? this.board[r].push(new Piece("red",r,c)) : this.board[r].push(null)
-                break;
-                }
-                default: this.board[r].push(null);
-                }
+                const color = r < 3 ? c1 : c2
+                if (r < 3 || r > 4) this.board[r].push(
+                    checkCoord(r,c) ? new Piece(color,r,c) : null
+                )
+                else this.board[r].push(null);
             }
         }
     }
@@ -102,49 +102,115 @@ class Board {
         board.setAttribute("class", "board");
         this.board.map((row,rowIndex)=> row.map((c,cellIndex) => {
             const cell = d.createElement('div')
-            if (rowIndex % 2 === 0) 
-            cell.setAttribute("class", cellIndex % 2 === 0 ? "dark" : "light")
-            if(rowIndex % 2 === 1){
-            cell.setAttribute("class", cellIndex % 2 === 0 ? "light" : "dark")
-            }
-            cell.setAttribute("data-row",rowIndex);
-            cell.setAttribute("data-col",cellIndex);
+            cell.setAttribute("class", even(rowIndex) ? (even(cellIndex) ? "dark":"light") : (odd(cellIndex) ? "dark":"light"))
+            cell.dataset.row = rowIndex;
+            cell.dataset.col = cellIndex;
             cell.innerHTML= c?.render() ?? ''
             board.appendChild(cell);
         }))
         element.appendChild(board)
     }
+    updateBoard (prevRow, prevCol, nextRow, nextCol){
+        const piece = this.board[prevRow][prevCol]
+        this.board[nextRow][nextCol] = piece
+        this.board[prevRow][prevCol] = null
+    }
 }
-gameControls()
 
-function gameControls(){
+const players = [
+    new Player("player 1", "black"),
+    new Player("player 2", "red")
+];
+const game = new Board(totalRows, totalCols);
+game.getBoard(players[0].color, players[1].color);
+
+const createButton =(color, innerText, onclick) => {
+    const button = d.createElement("button")
+    Object.assign(button, {
+        className: "btn btn-"+color,
+        innerText,
+        onclick
+    })
+    return button
+}
+const gameControls = () =>{
     const controls = d.createElement("div")
-    controls.setAttribute("class","game-controls")
-    const start = () => {
-        const startButton = d.createElement("button")
-        Object.assign(startButton, {
-            className: "btn btn-primary",
-            innerText: "EMPEZAR",
-            onclick: () => {
-                const player = new Player("player 1", "black");
-                player.changeTurn();
-                const game = new Board(totalRows, totalCols);
-                game.getBoard();
-                game.createBoard(root);
-            }
-        })
-        return startButton
-    }
-    const reset = () => {
-        const resetButton = d.createElement("button")
-        Object.assign(resetButton, {
-            className: "btn btn-danger",
-            onclick: () => start().click()
-        })
-        resetButton.innerHTML = "REINICIAR"
-        return resetButton
-    }
-    controls.append(start(), reset())
+    controls.setAttribute("class", "game-controls");
+    const start = createButton("primary", "EMPEZAR", () => {
+        if(confirm("¿desea empezar una nueva partida?")) gameStart()
+    })
+    const save = createButton("success", "GUARDAR", () => {
+        if(confirm("¿desea guardar la partida?")) saveGame()
+    })
+    const load = createButton("secondary", "CARGAR", () => {
+        if(confirm("¿desea cargar la ultima partida?")) loadGame()
+    })
+    controls.append(start,save)
     root.appendChild(controls)
 }
+// Acciones del Juego
+let selected;
+const events = ['click', 'dragstart', 'dragover', 'drop']
+const gameStart = () => {
+    players[0].isTurn = true;
+    players[1].isTurn = false;
+    game.getBoard("black", "red")
+    game.createBoard(root);
+}
+const saveGame = () => {
+    localStorage.setItem("board", JSON.stringify(game.board));
+    localStorage.setItem("players", JSON.stringify(players));
+}
+const loadGame = () =>{
+    const loaded = localStorage.getItem("board") ?? 'no se encontraron partidas';
+    game.board = loaded.board;
+    updateBoard()
+}
+const gameActions = (e,action) => {
+    const {target:el, target:{dataset:ds}, target:{dataset:{row,col}},} = e
+    const current = players.filter(({isTurn}) => isTurn === true )[0];
+    switch(action){
+        case "click":
+            if (el.tagName === "IMG" && el.classList.contains(current.color)){
+                selected = el
+            }
+            if (el.classList.contains("dark") && selected != undefined) {
+                const {dataset:{row:r, col:c}} = selected
+                el.appendChild(selected)
+                game.updateBoard(r, c, row, col)
+                selected.dataset.row = row
+                selected.dataset.col = col
+                selected = null;
+                players.forEach(p => p.changeTurn())
+                console.log(players)
+            }
+        break;
+        case "dragstart":
+            e.dataTransfer.setData("piece",`${row},${col}`);
+        break;
+        case "dragover":
+            e.preventDefault()
+            e.stopPropagation()
+        break;
+        case "drop":
+            if(el.classList.contains("dark")){
+                const [r,c] = e.dataTransfer.getData("piece").split(",");
+                const img = d.querySelector(`img[data-row="${r}"][data-col="${c}"]`)
+                const piece = game.board[r][c]
+                if(piece?.movePiece(row,col)){
+                    el.appendChild(img)
+                    img.dataset.row = piece.row
+                    img.dataset.col = piece.col
+                    game.updateBoard(r,c,row,col)
+                    console.log(game)
+                }
+            }
+        break;
+    }
+}
+events.forEach(action => {
+    d.addEventListener(action, (e) => gameActions(e, action))
+})
+gameControls()
+
 })()
