@@ -4,6 +4,9 @@ import { d, root, checker } from "./utils.js";
 import { Game } from "./models/Game.js";
 // IIFE (Inmediately Invoked Function Expression)
 ( function() {
+root.className = 'light-bg'
+let currentTheme = 'light-bg'
+
 const currentGame = new Game([{color:"black",name:"player 01"},{color:"red",name: "player 02"}])
 // Para Modularizar
 const players = [
@@ -34,9 +37,14 @@ const gameControls = () =>{
         }),
         createButton("secondary", "CARGAR", () => {
             if(confirm("¿desea cargar la ultima partida?")) load()
+        }),
+        createButton("secondary", "CAMBIAR TEMA", () => {
+            root.classList.contains('light-bg') ? changeTheme(root, 'dark-bg') : changeTheme(root, 'light-bg')
+            currentTheme = root.className
         })
     )
     root.appendChild(controls)
+    
 }
 // Acciones del Juego
 let selected;
@@ -56,6 +64,10 @@ const load = () =>{
     game.board = loaded.board;
     updateBoard()
 }
+const changeTheme = (element, theme) => {
+    element.className = ''
+    element.classList.add(theme)
+}
 const gameActions = (e,action) => {
     const {target:el, target:{dataset:ds}, target:{dataset:{row,col}},} = e
     const current = players.filter(({isTurn}) => isTurn === true )[0];
@@ -72,7 +84,6 @@ const gameActions = (e,action) => {
                 selected.dataset.col = col
                 selected = null;
                 players.forEach(p => p.changeTurn())
-                console.log(players)
             }
         break;
         case "dragstart":
@@ -92,7 +103,6 @@ const gameActions = (e,action) => {
                     img.dataset.row = piece.row
                     img.dataset.col = piece.col
                     game.updateBoard(r,c,row,col)
-                    console.log(game)
                 }
             }
         break;
