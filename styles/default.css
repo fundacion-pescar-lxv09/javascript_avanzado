@@ -1,0 +1,6 @@
+#root > section{
+    display: none;
+}
+#root > section:target{
+    display: block;
+}
