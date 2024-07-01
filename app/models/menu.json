@@ -1,0 +1,17 @@
+[
+    {
+        "url": "#todo",
+        "text": "lista de tareas",
+        "app": "TodoApp()"
+    },
+    {
+        "url": "#timer",
+        "text": "cronometro",
+        "app": "Timer()"
+    },
+    {
+        "url": "#cardgame",
+        "text": "juego de cartas",
+        "app": "CardGame()"
+    }
+]

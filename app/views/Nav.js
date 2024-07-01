@@ -1,11 +1,5 @@
-const simpleLinks = ["todo", "timer", "cardgame"]
-export const objectLinks = [
-    {url: "#todo", text: "lista de tareas"},
-    {url: "#timer", text: "cronometro"},
-    {url: "#cardgame", text: "juego de cartas"}
-]
 const templateLink = ({url, text}) =>`<li><a class="nav-link" href="${url}">${text}</a></li>`
-function Nav(){
+function Nav(array){
     const nav = document.createElement('nav');
     Object.assign(nav, {
         id: 'navigation',
@@ -16,7 +10,7 @@ function Nav(){
                 data-bs-toggle="collapse"
                 data-bs-target=".menu">
             </button>
-            ${Links(objectLinks)}`,
+            ${Links(array)}`,
     })
     return nav
 }
