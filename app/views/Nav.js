@@ -1,5 +1,5 @@
 const simpleLinks = ["todo", "timer", "cardgame"]
-const objectLinks = [
+export const objectLinks = [
     {url: "#todo", text: "lista de tareas"},
     {url: "#timer", text: "cronometro"},
     {url: "#cardgame", text: "juego de cartas"}
