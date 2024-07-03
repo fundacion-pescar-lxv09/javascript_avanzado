@@ -13,11 +13,11 @@ export const CardGame = () => {
             <div class="box">${ deck.render() }</div>
             ${ deck.createMat() }
             <div class="controls">
-                <button id="start">Empezar Juego</button>
+                <button id="start">Empezar Nuevo Juego</button>
                 <button id="draw">Pedir</button>
                 <button id="bet">Apostar</button>
                 <button id="split">Doblar Apuesta</button>
-                <button id="">Rendirse</button>
+                <button id="surrender">Rendirse</button>
             </div>
         `
     })

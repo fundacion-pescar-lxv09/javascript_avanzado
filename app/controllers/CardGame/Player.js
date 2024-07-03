@@ -18,10 +18,10 @@ class Player{
         this.ammount*=2;
     }
     win(){
-        this.message = "¡Felicitaciones! Has ganado"
+        return this.message = "¡Felicitaciones! Has ganado"
     }
     loose(){
-        this.message = "¡Lo sentimos! Has perdido"
+        return this.message = "¡Lo sentimos! Has perdido"
     }
     reset(){
         this.score = 0;
