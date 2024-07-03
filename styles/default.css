@@ -30,8 +30,11 @@
     transition: all .5s linear;
 }
 .suit:hover{
-    transform: translateY(4rem);
+    transform: translateY(2rem);
     box-shadow: 0 0 .5rem #666;
+}
+.suit:hover > .bg{
+    opacity: 0;
 }
 .suit::before,
 .suit::after{
@@ -39,6 +42,7 @@
     position: absolute;
     padding: .25rem;
     line-height: 1.25rem;
+    z-index: 1;
 }
 .suit::before{
     top: 0;
@@ -48,4 +52,21 @@
     bottom: 0;
     right: 0;
     transform: rotate(180deg);
+}
+.suit span:not(.bg){
+    z-index: 1;
+}
+.bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: #c33;
+    background-image: 
+        repeating-linear-gradient(to top right, #3338, #eee8 5%),       
+        repeating-linear-gradient(to bottom right, #3338, #eee8 5%);
+    z-index: 2;
+    transition: all .5s ease;
 }
