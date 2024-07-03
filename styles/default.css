@@ -4,3 +4,48 @@
 #root > section:target{
     display: block;
 }
+/* CardGame */
+.box{
+    position: relative;
+}
+.black{
+    color: #333;
+}
+.red{
+    color: #c33;
+}
+.suit{
+    position: absolute;
+    display: flex;
+    box-shadow: 0 0 .25rem #ccc;
+    border-radius: .25rem;
+    min-width: 5rem;
+    padding: 2.5rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    background-color: #fff;
+    transform: rotateY(180deg);
+    transition: all .5s linear;
+}
+.suit:hover{
+    transform: translateY(4rem);
+    box-shadow: 0 0 .5rem #666;
+}
+.suit::before,
+.suit::after{
+    content: attr(data-suit);
+    position: absolute;
+    padding: .25rem;
+    line-height: 1.25rem;
+}
+.suit::before{
+    top: 0;
+    left: 0;
+}
+.suit::after{
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
