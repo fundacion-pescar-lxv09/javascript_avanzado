@@ -16,6 +16,8 @@
 }
 .suit{
     position: absolute;
+    top: 1rem;
+    left: .5rem;
     display: flex;
     box-shadow: 0 0 .25rem #ccc;
     border-radius: .25rem;
@@ -69,4 +71,56 @@
         repeating-linear-gradient(to bottom right, #3338, #eee8 5%);
     z-index: 2;
     transition: all .5s ease;
+}
+.box{
+    position: relative;
+    max-width: 8rem;
+    min-height: 10rem;
+    margin: 1rem auto;
+    border-radius: .25rem;
+    border: .6rem solid #853;
+    box-shadow: 
+        0 .5rem .5rem #333,
+        -.5rem .5rem #431 inset;
+    background-image: linear-gradient(#853, #431);
+}
+.playmat{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: .5rem;
+    background-image: linear-gradient(
+        hsl(120, 50%, 50%),
+        hsl(120,50%,30%)
+    );
+}
+.card-space{
+    position: relative;
+    min-width: 6rem;
+    min-height: 9rem;
+    border-radius: .25rem;
+    border: .25rem solid #eee;
+}
+.card-space .suit{
+    margin: .5rem 0;
+    position: static;
+    transform: rotateX(0);
+}
+.card-space .bg{
+    opacity: 0;
+}
+.player{
+    list-style: none;
+    border-radius: .5rem;
+    padding: 1rem;
+    position: fixed;
+    bottom: .5rem;
+    right: .5rem;
+    color: #eee;
+    background-color: #248;
+    opacity: .3;
+}
+.player:hover{
+    opacity: .8;
 }
