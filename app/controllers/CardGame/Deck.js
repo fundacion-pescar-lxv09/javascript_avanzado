@@ -22,5 +22,13 @@ class Deck {
             </div>`)
         return deck;
     }
+    createMat(playmat=""){
+        playmat='<div class="playmat">'
+        for(let i=0; i < 5; i++){
+            playmat+='<div class="card-space"></div>'
+        }
+        playmat+="</div>"
+        return playmat;
+    }
 }
 export default Deck;
