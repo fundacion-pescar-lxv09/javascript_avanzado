@@ -1,7 +1,7 @@
 // Modelos
 import MenuLinks from "./models/menu.json" with {type: 'json'}
 // Controladores
-
+import { TodoApp, Timer, CardGame } from "./controllers/index.js";
 // Vistas
 import Nav from "./views/Nav.js";
 import Section from "./views/Section.js"
@@ -10,7 +10,7 @@ import Section from "./views/Section.js"
         const root = document.getElementById('root');
         root.appendChild(Nav(MenuLinks));
         MenuLinks.map(({url,text,app})=> 
-            root.appendChild(Section(text,url.replace("#",""))
+            root.appendChild(Section(text,url.replace("#",""), eval(app))
         ))
     })
 })()
