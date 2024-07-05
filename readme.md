@@ -290,3 +290,64 @@ async function getData({url, ...request}) {
 ```
 
 __async/await__ es una herramienta poderosa que simplifica la escritura y el manejo de código asíncrono en JavaScript, mejorando la legibilidad y mantenibilidad del código en comparación con el uso tradicional de callbacks y encadenamiento de promesas.
+
+---
+
+## Ejercicios
+
+### Objeto Window
+
+1. Crear una pagina con un boton que devuelva _por consola_ las dimensiones del navegador `(ancho x alto)`
+1. Agregar un Boton que al ser presionado muestre la `direccion URL` del navegador en un _mensaje de alerta_.
+1. Desde _la consola_ acceder a las propiedades `vendor`, `appName` y `appVersion` del objeto navigator.
+
+### Objeto Document
+
+1. En una pagina en blanco, definir un titulo a eleccion para la pestaña del navegador y luego crear un nodo __H1__ cuyo contenido sea la propiedad `_title_` definida en el mismo documento.
+1. Agregar 5 parrafos al documento HTML que posean las siguientes caracteristicas:
+    * atributo id `"texto-uno"`, `"texto-dos"`, `"texto-final"`.
+    * atributo class `"texto-destacado"` para tres
+1. Almacenar los parrafos en __variables__ utilizando los metodos `_getElementById()_`, `_getElementsByClassName_` y `_getElementsByTagName()`_ con los nombres _varConId_, _varConClass_ y _varConTag_.
+4. Cambiar el contenido de algunos parrafos por la __cantidad de elementos__ que posea cada variable utilizando la propiedad `length`
+
+### API de Eventos
+
+1. Crear en una pagina nueva la siguiente estructura de nodos HTML utilizando las etiquetas que considere mas adecuadas y posean los textos:
+
+    ```
+    * Peliculas
+        * Accion
+            * Top Gun
+            * Bullet Train
+            * Woman King
+        * Animacion
+            * Pinocchio
+            * Lightyear
+            * Red
+        * Ciencia Ficcion
+            * Avatar the Way of Water
+            * Jurassic World Dominion
+        * Comedia
+            * Everything Everywhere All at Once
+            * Triangle of Sadness
+            * Weird
+        * Drama
+            * the Fablemans
+            * Elvis
+            * Blonde
+        * Suspenso
+    ```
+1. Agregar un escuchador de eventos aprovechando la _propagacion_ para que cuando se realice __click__ sobre alguno de los hijos, este cambie su color.
+1. Agregar un __input__ con atributo _type="password"_ con un parrafo debajo, que muestre el contenido del mismo al realizar el evento correspondiente.
+
+### Expresiones Regulares
+
+1. Realize una expresion regular que solamente valide numeros pares
+1. Crear una expresion para validar el siguiente CP `B1636FDA`:
+    * Un caracter alfabetico para identificar la provincia
+    * Cuatro digitos para identificar las subdivisiones
+    * Tres caracteres alfabeticos para identificar manzana
+1. Utilizar una expresion que verifique si es un color HEXADECIMAL:
+    * Debe empezar con un simbolo numeral
+    * Debe contener en total 6 caracteres alfanumericos
+    * Solo Se permiten letras de la A a la F y numeros entre 0 y 9
