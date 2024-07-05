@@ -214,6 +214,7 @@ Es una función que se pasa a otra función como un argumento y que luego se inv
 | __setInterval__(`cbFn`, `dy`) | `args` | ejecuta una funcion callback cada cierto periodo de tiempo
 | __setTimeout__(`cbFn`, `dy`)  | `args` | ejecuta una funcion despues de transcurrido cierto lapso de tiempo
 
+#### XMLHttpRequest
 ```js
 function getData(url, callback) {
     const xhr = new XMLHttpRequest();
@@ -247,17 +248,18 @@ Una _promesa pendiente puede cumplirse_ con un valor o _rechazarse con un motivo
 |__catch__(`reject`)| Permite manejar explicitamente los errores de rechazo de la promesa |
 |__finally__(`callback`) | Permite ejecutar una función independientemente del resultado, útil para limpiar recursos |
 
+#### API fetch
 ```js
 function getData(url) {
     return new Promise((resolve, reject) => {
     fetch(url)
-    .then((response) => { 
-        if(!response.ok) throw new Error("Error de red: "+response.status);
-        return response.json();
+    .then((res) => { 
+        if(!res.ok) throw new Error("error: "+res.status);
+        return res.json();
     })
     .then((data) => resolve(data))
     .catch((error) => reject(error))
-}}
+})}
 ```
 
 Las promesas son una mejora significativa sobre los callbacks para manejar la asincronía en JavaScript, ofreciendo un _código más legible y mantenible_, además de _facilitar la gestión de errores_ y el _flujo de control_ en operaciones asíncronas.
@@ -274,14 +276,13 @@ Característica que proporciona una forma más concisa y fácil de trabajar con 
 | __Paralelismo__ |	Se puede lograr esperando múltiples promesas con _Promise.all() y await_ |
 | __Compatibilidad__ |	Se puede utilizar en _navegadores modernos y entornos Node.js_ |
 
+#### Try... Catch
 ```js
-async function getData({url, ...request}) {
+async function getData({url, ...req}) {
     try {
-        const response = await fetch(url, request);
-        if (!response.ok) {
-            throw new Error("Error de red: "+ response.status)
-        }
-        const data = await response.json()
+        const res = await fetch(url,req);
+        if (!res.ok) throw new Error("error: "+ res.status)
+        const data = await res.json()
         return data
     } catch (error) {
         throw error
