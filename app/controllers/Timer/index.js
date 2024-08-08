@@ -1,42 +1,84 @@
 export const Timer = () => {
     // Constructor
-    function Clock(HH,mm,ss){
-        this.HH = HH;
-        this.mm = mm;
-        this.ss = ss
+    class Clock {
+        constructor(HH, mm, ss) {
+            this.HH = HH;
+            this.mm = mm;
+            this.ss = ss;
+        }
+        get(n){ return n < 10 ? `0${n}` : n; }
+        set(k, n = 0){ this[k] = n; }
+        getTime() { return `${this.get(this.HH)}:${this.get(this.mm)}:${this.get(this.ss)}`; }
     }
-    // Metodos
-    Clock.prototype.get = function(n){ return n < 10 ? `0${n}` : n    }
-    Clock.prototype.set = function(k,n=0){ this[k] = n }
-    Clock.prototype.getTime = function (){
-        return `${this.get(this.HH)}:${this.get(this.mm)}:${this.get(this.ss)}`
+    class Chron extends Clock{
+        constructor(){
+            super(...arguments)
+        }
+        addTime (k,n=1){ this[k]+= n }
+        timeUp (){
+            if(this.ss < 59 ) this.addTime("ss") 
+            else this.set("ss")
+
+            if(this.mm < 59 && this.ss === 0) this.addTime("mm")
+            else if(this.ss === 0) this.set("mm")
+
+            if(this.mm == 0 && this.ss == 0) this.addTime("HH")
+        }
     }
-    // Agregar o Sustraer tiempo
-    Clock.prototype.addTime = function(k,n=1){ this[k]+= n }
-    Clock.prototype.susTime = function(k,n=1){ this[k]-= n }
-    // Determinar tiempo
-    Clock.prototype.timeUp = function(){
-        // Manejo de Segundos
-        if(this.ss < 59 ) this.addTime("ss")
-        else this.set("ss")
-        // Manejo de Minutos
-        if(this.mm < 59 && this.ss === 0) this.addTime("mm")
-        else if(this.ss === 0) this.set("mm")
-        // Manejo de Horas
-        if(this.mm == 0 && this.ss == 0) this.addTime("HH")
-    }
-    Clock.prototype.timeDown = function(){
+    class Timer extends Clock{
+        constructor(){
+            super(...arguments)
+        }
+        susTime (k,n=1){ this[k]-= n }
+        timeDown () {
         if (this.ss > 0) this.susTime("ss")
-        else this.set("ss",59)
-    
+            else this.set("ss",59)
+        
         if(this.mm > 0 && this.ss == 59) this.susTime("mm")
-        else if (this.ss == 59) this.set("mm",59)
-    
+            else if (this.ss == 59) this.set("mm",59)
+        
         if(this.mm == 59 && this.ss == 59) this.susTime("HH")
+        }
     }
     // Declaraciones
     let interval;
-    const clock = new Clock(3,15,30)
-    const start = (callback) => setInterval(callback, 10);
+    
+    const start = (callback) => setInterval(callback, 1000);
     const stop = (interval) => clearInterval(interval);
+
+
+    function startClock(e){
+        const clock = document.querySelector('.clock');
+        const data = new FormData(e)
+        console.log(clock, data.entries())
+    }
+    function stopClock(){
+        const clock = document.querySelector('.clock');
+        console.log(clock)
+    }
+    function resetClock(){
+        const clock = document.querySelector('.clock');
+        console.log(clock)
+    }
+    const render = () => {
+        const content = Object.assign( document.createElement('div'), {
+            id: "timer",
+            innerHTML: `
+                <p>00:00:00</p>
+                <form class="clock">
+                    <input type="number" name="HH" min="0"  max="">
+                    <input type="number" name="mm" min="0"  max="59">
+                    <input type="number" name="ss" min="0"  max="59">
+                </form>
+                <button id="startClock" data-target="HH">Empezar</button>
+                <button id="stopClock" data-target="mm">Detener</button>
+                <button id="resetClock" data-target="ss">Reiniciar</button>
+            `,
+            onclick: ({target}) =>{
+                eval(`${target.id}()`)
+            }
+        })
+        return content
+    }
+    return render()
 }
